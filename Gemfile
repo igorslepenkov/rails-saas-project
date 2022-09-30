@@ -77,3 +77,5 @@ gem 'pg'
 gem 'bootstrap'
 
 gem 'solargraph'
+
+gem 'dotenv-rails', groups: [:development, :test]
