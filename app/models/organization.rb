@@ -3,4 +3,7 @@ class Organization < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
+  validates :name, presence: true
+  validates :subdomain, presence: true
+  validates :plan, presence: true
 end
