@@ -1,0 +1,14 @@
+.field {
+  text-align: start;
+  margin-bottom: 10px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+
+  &:hover {
+    color: #d8d8d8;
+    text-decoration: underline;
+  }
+}

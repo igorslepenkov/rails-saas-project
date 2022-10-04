@@ -73,7 +73,10 @@ Rails.application.configure do
     user_name: 'apikey',
     password: ENV['SENDGRID_KEY'],
     address: 'smtp.sendgrid.net',
-    port: '465'
+    domain: 'https://igor-saas-project.herokuapp.com/',
+    port: '587',
+    authentication: :plain,
+    enable_starttls_auto: true
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.

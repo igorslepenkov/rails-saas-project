@@ -37,6 +37,8 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
   config.action_mailer.perform_deliveries = true
 
   config.action_mailer.raise_delivery_errors = true
@@ -48,9 +50,11 @@ Rails.application.configure do
     user_name: 'apikey',
     password: ENV['SENDGRID_KEY'],
     address: 'smtp.sendgrid.net',
-    port: '465'
+    domain: 'localhost:3000',
+    port: '587',
+    authentication: :plain,
+    enable_starttls_auto: true
   }
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

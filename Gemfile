@@ -6,6 +6,10 @@ ruby '3.1.2'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4'
 
+gem 'dotenv-rails', require: 'dotenv/rails-now'
+
+gem 'devise'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
@@ -70,12 +74,8 @@ group :test do
   gem 'webdrivers'
 end
 
-gem 'devise'
-
 gem 'pg'
 
 gem 'bootstrap'
 
 gem 'solargraph'
-
-gem 'dotenv-rails', groups: [:development, :test]
