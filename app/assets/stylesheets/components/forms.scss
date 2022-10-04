@@ -12,3 +12,105 @@
     text-decoration: underline;
   }
 }
+
+.edit-org-grid {
+  display: grid;
+  align-items: end;
+  grid-template-areas:
+    "email password"
+    "name confirm"
+    "plan current"
+    "subdomain ..."
+    "submit submit";
+  column-gap: 10px;
+
+  @media (max-width: 568px) {
+    grid-template-areas:
+      "name"
+      "email"
+      "password"
+      "confirm"
+      "current"
+      "plan"
+      "subdomain"
+      "submit";
+  }
+
+  .org-email {
+    grid-area: email;
+  }
+
+  .org-password {
+    grid-area: password;
+  }
+
+  .org-confirm {
+    grid-area: confirm;
+  }
+
+  .org-plan {
+    grid-area: plan;
+  }
+
+  .org-name {
+    grid-area: name;
+  }
+
+  .org-submit {
+    grid-area: submit;
+  }
+
+  .org-subdomain {
+    grid-area: subdomain;
+  }
+}
+
+.sign-up-grid {
+  display: grid;
+  align-items: end;
+  grid-template-areas:
+    "email password"
+    "name confirm"
+    "plan subdomain"
+    "submit submit";
+  column-gap: 10px;
+
+  @media (max-width: 568px) {
+    grid-template-areas:
+      "name"
+      "email"
+      "password"
+      "confirm"
+      "plan"
+      "subdomain"
+      "submit";
+  }
+
+  .org-email {
+    grid-area: email;
+  }
+
+  .org-password {
+    grid-area: password;
+  }
+
+  .org-confirm {
+    grid-area: confirm;
+  }
+
+  .org-plan {
+    grid-area: plan;
+  }
+
+  .org-name {
+    grid-area: name;
+  }
+
+  .org-submit {
+    grid-area: submit;
+  }
+
+  .org-subdomain {
+    grid-area: subdomain;
+  }
+}

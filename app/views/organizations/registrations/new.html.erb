@@ -1,0 +1,41 @@
+<div class="w-100 d-flex flex-column justify-content-center align-items-center">
+  <h2>New organization</h2>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "organizations/shared/error_messages", resource: resource %>
+    <div class="sign-up-grid">
+      <div class="org-email field">
+        <%= f.label :email, class: "lead"  %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"  %>
+      </div>
+      <div class="org-password field">
+        <%= f.label :password, class: "lead"  %><br />
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control"  %>
+      </div>
+      <div class="org-confirm field">
+        <%= f.label :password_confirmation, class: "lead" %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"  %>
+      </div>
+      <div class="org-name field">
+        <%= f.label :name, class: "lead"  %><br />
+        <em>(unique organization name)</em><br />
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="org-plan field">
+        <%= f.label :plan, class: "lead"  %><br />
+        <%= f.select :plan, [['FREE', 'free'], ['PREMIUM', 'premium']], {}, {class: "form-select"} %>
+      </div>
+      <div class="org-subdomain field">
+        <%= f.label :subdomain, class: "lead"  %><br />
+        <em>(short unique identificator)</em><br />
+        <%= f.text_field :subdomain, class: "form-control" %>
+      </div>
+      <div class="org-submit actions">
+        <%= f.submit "Sign up", class: "btn btn-light btn-lg mb-3"  %>
+      </div>
+    </div>
+  <% end %>
+  <%= render "organizations/shared/links" %>
+</div>

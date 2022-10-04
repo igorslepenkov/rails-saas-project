@@ -1,14 +1,14 @@
 <div class="w-100 d-flex flex-column justify-content-center align-items-center">
-  <h2 class="h2">Resend unlock instructions</h2>
+  <h2>Resend unlock instructions</h2>
   <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= render "organizations/shared/error_messages", resource: resource %>
     <div class="field">
-      <%= f.label :email, class: "lead" %><br />
+      <%= f.label :email, class: "lead"  %><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"  %>
     </div>
     <div class="actions">
       <%= f.submit "Resend unlock instructions", class: "btn btn-light btn-lg mb-3"  %>
     </div>
   <% end %>
-  <%= render "devise/shared/links" %>
+  <%= render "organizations/shared/links" %>
 </div>

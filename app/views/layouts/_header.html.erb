@@ -15,10 +15,13 @@
           </li>
         </ul>
       </div>
-      <% if user_signed_in? %>
-        <%= link_to 'Sign Out', destroy_user_session_path, class: "btn btn-danger", data: {turbo_method: :delete} %>
+      <% if organization_signed_in? %>
+        <div>
+          <%= link_to current_organization.name, edit_organization_registration_path, class: "btn btn-light me-3" %>
+          <%= link_to 'Sign Out', destroy_organization_session_path, class: "btn btn-danger", data: {turbo_method: :delete} %>
+        </div>
       <% else %>
-        <%= link_to 'Sign In', new_user_session_path , class: "btn btn-light"%>
+        <%= link_to 'Sign In', new_organization_session_path , class: "btn btn-light"%>
       <% end %>
     </div>
   </nav>
