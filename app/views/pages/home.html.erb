@@ -1,6 +1,8 @@
 <div class="w-100 d-flex flex-column justify-content-center align-items-center">
   <h2 class="h2">Welcome to Management App!</h3>
   <p class="lead h3">We are glad to see you on our home page!</p>
-  <p class="lead h3">In order to continue using application, please pass registration or sign in</p>
-  <a href="<%= new_user_session_path %>" class="btn btn-lg btn-light">Sign In</a>
+  <p class="lead h3">In order to continue using application, please pass a registration or sign in</p>
+  <%= link_to "Sign In", new_user_session_path, class: "btn btn-lg btn-light" %>
+  or 
+  <%= link_to "Take a look at plans", pages_plans_path, class: "btn btn-lg btn-light" %>
 </div>

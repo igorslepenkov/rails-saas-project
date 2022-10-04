@@ -79,3 +79,5 @@ gem 'pg'
 gem 'bootstrap'
 
 gem 'solargraph'
+
+gem 'acts_as_tenant'

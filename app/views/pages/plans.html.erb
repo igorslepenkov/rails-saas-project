@@ -1,0 +1,31 @@
+<div class="w-100 d-flex flex-column justify-content-center align-items-center">
+  <h2 class="h2">Take a closer look at our plans</h3>
+  <div class="d-flex mt-3">
+    <div class="card text-bg-secondary me-3" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Free Plan</h5>
+        <ul class="list-group list-group-flush text-start rounded mb-2 mt-2">
+          <li class="list-group-item">Unlimited file uploads</li>
+          <li class="list-group-item">Responsive design</li>
+          <li class="list-group-item">Access anywhere</li>
+          <li class="list-group-item">1 project</li>
+        </ul>
+        <p class="lead">FOR FREE</p>
+        <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-light" %>
+      </div>
+    </div>
+    <div class="card text-bg-secondary" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Premium Plan</h5>
+        <ul class="list-group list-group-flush text-start rounded mb-2 mt-2">
+          <li class="list-group-item">Unlimited file uploads</li>
+          <li class="list-group-item">Responsive design</li>
+          <li class="list-group-item">Access anywhere</li>
+          <li class="list-group-item">Unlimited amount of projects</li>
+        </ul>
+        <p class="lead">Price: 10$</p>
+        <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-light" %>
+      </div>
+    </div>
+  </div>
+</div>
