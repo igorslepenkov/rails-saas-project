@@ -5,4 +5,6 @@ class PagesController < ApplicationController
   def about; end
 
   def plans; end
+
+  def dashboard; end
 end

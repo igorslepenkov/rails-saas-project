@@ -1,8 +1,13 @@
 <div class="w-100 d-flex flex-column justify-content-center align-items-center">
   <h2 class="h2">Welcome to Management App!</h3>
-  <p class="lead h3">We are glad to see you on our home page!</p>
-  <p class="lead h3">In order to continue using application, please pass a registration or sign in</p>
-  <%= link_to "Sign In", new_organization_session_path, class: "btn btn-lg btn-light" %>
-  or 
-  <%= link_to "Take a look at plans", pages_plans_path, class: "btn btn-lg btn-light" %>
+  <p class="h3 mb-3">We are glad to see you on our home page!</p>
+  <% if current_organization %>
+    <p class="lead h3">Go to your organization's dashboard</p>
+    <%= link_to "Dashboard", pages_dashboard_path, class: "btn btn-lg btn-light" %>
+  <% else %>
+    <p class="lead">In order to continue using application, please pass a registration or sign in</p>
+    <%= link_to "Sign In", new_organization_session_path, class: "btn btn-lg btn-light" %>
+    or 
+    <%= link_to "Take a look at plans", pages_plans_path, class: "btn btn-lg btn-light" %>
+  <% end %>
 </div>
