@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   set_current_tenant_by_subdomain(:organization, :subdomain)
   before_action :check_if_on_subdomain
   before_action :authenticate_user!
+  protect_from_forgery except: :sign_in
 
   protected
 
@@ -16,7 +17,12 @@ class ApplicationController < ActionController::Base
   def check_if_on_subdomain
     return unless request.subdomain.empty? && organization_signed_in?
 
-    current_path = URI(request.url).path
-    redirect_to "http://#{current_organization.subdomain}.lvh.me:3000/#{current_path}", allow_other_host: true
+    redirect_to "http://#{current_organization.subdomain}.lvh.me:3000?redirect=true",
+                allow_other_host: true
+    flash[:notice] = 'Right now you will be redirected to the subdomain page to sign in'
+  end
+
+  def authenticate_inviter!
+    authenticate_organization!(force: true)
   end
 end

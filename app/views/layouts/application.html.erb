@@ -11,6 +11,7 @@
   <body class="container d-flex flex-column min-vh-100 text-center text-white bg-dark">
     <%= render 'layouts/header' %>
     <%= render 'layouts/messages' %>
+    <%= render 'layouts/redirect' if redirected? && !organization_signed_in? %>
     <main class="flex-grow-1 d-flex align-items-stretch">
       <%= yield %>
     </main>

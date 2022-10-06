@@ -81,3 +81,7 @@ gem 'bootstrap'
 gem 'solargraph'
 
 gem 'acts_as_tenant'
+
+gem 'rack-cors'
+
+gem 'devise_invitable'
