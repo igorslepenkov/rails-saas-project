@@ -7,4 +7,5 @@ class Organization < ApplicationRecord
   validates :subdomain, presence: true, uniqueness: true
   validates :plan, presence: true
   has_many :users
+  has_many :projects
 end
