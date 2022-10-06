@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
 
     redirect_to "http://#{current_organization.subdomain}.lvh.me:3000?redirect=true",
                 allow_other_host: true
-    flash[:notice] = 'Right now you will be redirected to the subdomain page to sign in'
   end
 
   def authenticate_inviter!

@@ -1,6 +1,27 @@
 <div class="w-100 d-flex flex-column align-items-center">
   <h2 class="h2 mt-5">Welcome to Dashboard</h3>
-  <div class="d-flex justify-content-between">
-    <%= link_to "Invite new user", new_user_invitation_path, class: "btn btn-light" %>
+  <div class="container contianer-fluid text-start">
+    <div class="d-flex justify-content-between">
+      <%= link_to "Invite new user", new_user_invitation_path, class: "btn btn-light" %>
+    </div>
+    <div class="mt-5">
+      <h3 class="h3">Organization Info</h3>
+      <ul class="list-group w-50">
+        <li class="list-group-item">Name: <%= @organization.name %></li>
+        <li class="list-group-item">Email: <%= @organization.email %></li>
+        <li class="list-group-item">Plan: <%= @organization.plan.upcase %></li>
+        <li class="list-group-item">Domain: <%= @domain %></li>
+      </ul>
+    </div>
+    <div class="mt-5">
+      <% if @organization.users.any? %>
+        <ul class="list-group">
+          <% @organization.users.each do |user| %>
+            <li class="list-group-item">
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
   </div>
 </div>

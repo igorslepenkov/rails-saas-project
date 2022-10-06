@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :authenticate_organization!, only: [:dashboard]
   skip_before_action :authenticate_user!
   def home; end
 
@@ -6,5 +7,8 @@ class PagesController < ApplicationController
 
   def plans; end
 
-  def dashboard; end
+  def dashboard
+    @organization = current_organization
+    @domain = request.host_with_port
+  end
 end
