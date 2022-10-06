@@ -7,5 +7,12 @@ module DeviseServices
         permit(:account_update, keys: %i[name subdomain plan payment])
       end
     end
+
+    class User < Devise::ParameterSanitizer
+      def initialize(*)
+        super
+        permit(:invite, keys: %i[first_name last_name])
+      end
+    end
   end
 end

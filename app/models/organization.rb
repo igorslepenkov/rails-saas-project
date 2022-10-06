@@ -7,5 +7,4 @@ class Organization < ApplicationRecord
   validates :subdomain, presence: true, uniqueness: true
   validates :plan, presence: true
   has_many :users
-  has_many :invitations, class_name: 'User', as: :invited_by
 end

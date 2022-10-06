@@ -20,13 +20,35 @@
           <% end %>
         </ul>
       </div>
-      <% if organization_signed_in? %>
+      <% if organization_signed_in? && user_signed_in? %>
+        <div class="dropdown">
+          <%= link_to 'Sign Out (from all acounts)', 
+              destroy_organization_session_path, 
+              class: "btn btn-danger", 
+              data: {turbo_method: :delete} %>
+        </div>
+      <% elsif user_signed_in? %>
         <div>
+          <%= link_to 'Sign in as organization', new_organization_session_path, class: "btn btn-light"%>
+          <%= link_to current_user.first_name, edit_user_registration_path, class: "btn btn-light me-3" %>
+          <%= link_to 'Sign Out', destroy_user_session_path, class: "btn btn-danger", data: {turbo_method: :delete} %>
+        </div>
+      <% elsif organization_signed_in? %>
+        <div>
+          <%= link_to 'Sign in as worker', new_user_session_path, class: "btn btn-light"%>
           <%= link_to current_organization.name, edit_organization_registration_path, class: "btn btn-light me-3" %>
           <%= link_to 'Sign Out', destroy_organization_session_path, class: "btn btn-danger", data: {turbo_method: :delete} %>
         </div>
       <% else %>
-        <%= link_to 'Sign In', new_organization_session_path , class: "btn btn-light"%>
+        <div class="dropdown">
+          <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Sign In
+          </button>
+          <ul class="dropdown-menu">
+            <li><%= link_to 'As organization', new_organization_session_path , class: "dropdown-item"%></li>
+            <li><%= link_to 'As worker', new_user_session_path , class: "dropdown-item"%></li>
+          </ul>
+        </div>
       <% end %>
     </div>
   </nav>

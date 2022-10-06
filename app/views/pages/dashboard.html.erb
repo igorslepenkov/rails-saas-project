@@ -5,22 +5,33 @@
       <%= link_to "Invite new user", new_user_invitation_path, class: "btn btn-light" %>
     </div>
     <div class="mt-5">
-      <h3 class="h3">Organization Info</h3>
+      <h3 class="h3">Organization Info:</h3>
       <ul class="list-group w-50">
-        <li class="list-group-item">Name: <%= @organization.name %></li>
-        <li class="list-group-item">Email: <%= @organization.email %></li>
-        <li class="list-group-item">Plan: <%= @organization.plan.upcase %></li>
-        <li class="list-group-item">Domain: <%= @domain %></li>
+        <li class="list-group-item list-group-item-dark">Name: <%= @organization.name %></li>
+        <li class="list-group-item list-group-item-light">Email: <%= @organization.email %></li>
+        <li class="list-group-item list-group-item-dark">Plan: <%= @organization.plan.upcase %></li>
+        <li class="list-group-item list-group-item-light">Domain: <%= @domain %></li>
       </ul>
     </div>
     <div class="mt-5">
+      <h3 class="h3">Invited Workers:</h3>
       <% if @organization.users.any? %>
-        <ul class="list-group">
-          <% @organization.users.each do |user| %>
-            <li class="list-group-item">
-            </li>
+        <table class="table table-dark w-50">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Email</th>
+          </tr>
+          <% @organization.users.each_with_index do |user, idx| %>
+            <tr>
+              <th scope="row"><%= idx + 1 %></th>
+              <td><%= user.first_name %></td>
+              <td><%= user.last_name %></td>
+              <td><%= user.email %></td>
+            </tr>
           <% end %>
-        </ul>
+        </table>
       <% end %>
     </div>
   </div>
