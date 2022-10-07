@@ -10,5 +10,6 @@ class PagesController < ApplicationController
   def dashboard
     @organization = current_organization
     @domain = request.host_with_port
+    @projects = Project.all
   end
 end

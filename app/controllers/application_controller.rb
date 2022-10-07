@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :check_if_organization_on_subdomain
   before_action :check_if_user_on_subdomain
   before_action :authenticate_user!
+  before_action :authenticate_organization!
 
   protected
 

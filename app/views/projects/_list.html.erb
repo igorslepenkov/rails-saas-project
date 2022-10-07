@@ -1,0 +1,30 @@
+<% if list && !list.empty? %>
+  <table class="table table-light table-striped">
+    <tr>
+      <th scope="row">#</th>
+      <th scope="col"> Title </th>
+      <th scope="col"> Details </th>
+      <th scope="col"> Expected completion </th>
+      <th colspan="2">Actions</th>
+    </tr>
+    <% list.each_with_index do |project, idx| %>
+      <tr>
+        <td scope="row"> <%= idx + 1 %> </td>
+        <td> <%= link_to project.title, project_path(project) %> </td>
+        <td> <%= project.details %> </td>
+        <td> <%= project.expected_completion_date %> </td>
+        <td><%= link_to "Destroy", 
+                project_path(project), 
+                data: {turbo_method: :delete},
+                class: "btn btn-danger" %></td>
+        <td><%= link_to "Edit", 
+                edit_project_path(project),
+                class: "btn btn-info"%></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <div class="d-flex flex-column align-items-center mb-5">
+    <h3 class="h3 text-info">You don't have any projects yet</h3>
+  </div>
+<% end %>

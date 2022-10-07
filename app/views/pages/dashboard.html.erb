@@ -1,22 +1,25 @@
 <div class="w-100 d-flex flex-column align-items-center">
   <h2 class="h2 mt-5">Welcome to Dashboard</h3>
-  <div class="container contianer-fluid text-start">
-    <div class="d-flex justify-content-between">
+  <div class="org-dashboard container contianer-fluid text-center">
+    <div class="org-controllers d-flex justify-content-between">
       <%= link_to "Invite new user", new_user_invitation_path, class: "btn btn-light" %>
+      <% unless current_organization.plan == 'free' && !current_organization.projects.empty? %>
+        <%= link_to "New project", new_project_path, class: "btn btn-light" %>
+      <% end %>
     </div>
-    <div class="mt-5">
+    <div class="org-info">
       <h3 class="h3">Organization Info:</h3>
-      <ul class="list-group w-50">
+      <ul class="list-group text-start">
         <li class="list-group-item list-group-item-dark">Name: <%= @organization.name %></li>
         <li class="list-group-item list-group-item-light">Email: <%= @organization.email %></li>
         <li class="list-group-item list-group-item-dark">Plan: <%= @organization.plan.upcase %></li>
         <li class="list-group-item list-group-item-light">Domain: <%= @domain %></li>
       </ul>
     </div>
-    <div class="mt-5">
+    <div class="org-workers mt-5">
       <h3 class="h3">Invited Workers:</h3>
       <% if @organization.users.any? %>
-        <table class="table table-dark w-50">
+        <table class="table table-dark">
           <tr>
             <th scope="col">#</th>
             <th scope="col">First name</th>
@@ -33,6 +36,10 @@
           <% end %>
         </table>
       <% end %>
+    </div>
+    <div class="org-projects">
+      <h3 class="h3">Your projects:</h3>
+      <%= render 'projects/list', list: @projects %>
     </div>
   </div>
 </div>

@@ -1,0 +1,6 @@
+<div class="w-100 d-flex flex-column align-items-center justify-content-center">
+  <h3 class="h3 mb-3">Create your new project</h3>
+  <%= form_with model: @project, url: project_path(@project), data: {turbo_method: :put} do |form| %>
+    <%= render 'form', locals: {f: form} %>
+  <% end %>
+</div>

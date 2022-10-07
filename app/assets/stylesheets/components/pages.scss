@@ -1,0 +1,25 @@
+.org-dashboard {
+  display: grid;
+  grid-template-areas:
+    "controllers controllers"
+    "info projects"
+    "workers projects";
+  column-gap: 10px;
+  row-gap: 10px;
+
+  .org-controllers {
+    grid-area: controllers;
+  }
+
+  .org-info {
+    grid-area: info;
+  }
+
+  .org-workers {
+    grid-area: workers;
+  }
+
+  .org-projects {
+    grid-area: projects;
+  }
+}

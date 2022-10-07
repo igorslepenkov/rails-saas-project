@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   get 'pages/about', to: 'pages#about'
   get 'pages/plans', to: 'pages#plans'
   get 'pages/dashboard', to: 'pages#dashboard'
+  resources :projects
 end
