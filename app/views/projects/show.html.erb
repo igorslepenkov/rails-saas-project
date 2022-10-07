@@ -9,6 +9,7 @@
     <div class="card-footer">
       <%= link_to "Destroy project", project_path(@project), class: "btn btn-danger" %>
       <%= link_to "Edit project", edit_project_path(@project), class: "btn btn-info" %>
+      <%= link_to "Add Artifact", new_artifact_path + "?project_id=#{@project.id}", class: "btn btn-dark" %>
     </div>
   </div>
 </div>

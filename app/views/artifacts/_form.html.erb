@@ -1,0 +1,14 @@
+<% f = locals[:f] %>
+<div class="field">
+  <%= f.label :name, class: "lead"  %><br />
+  <%= f.text_field :name, autofocus: true, class: "form-control"  %>
+</div>
+<div class="field">
+  <%= f.label :key, class: "lead"  %><br />
+  <%= f.file_field :key, class: "form-control"  %>
+</div>
+<%= f.hidden_field :project_id %>
+<div class="org-submit actions d-flex flex-column">
+  <em class="text-danger mb-2 mt-2">all fields are requred</em>
+  <%= f.submit "Submit", class: "btn btn-light btn-lg mb-3"  %>
+</div>

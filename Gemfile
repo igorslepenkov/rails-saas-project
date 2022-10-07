@@ -85,3 +85,7 @@ gem 'acts_as_tenant'
 gem 'rack-cors'
 
 gem 'devise_invitable'
+
+gem 'carrierwave', '~> 2.0'
+
+gem 'fog-google'

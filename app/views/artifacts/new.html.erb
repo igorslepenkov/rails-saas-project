@@ -1,0 +1,6 @@
+<div class="w-100 d-flex flex-column align-items-center justify-content-center">
+  <h3 class="h3 mb-3">Add artifact</h3>
+  <%= form_with scope: :artifact, url: artifacts_path, data: {turbo_method: :post} do |form| %>
+    <%= render 'form', locals: {f: form} %>
+  <% end %>
+</div>
