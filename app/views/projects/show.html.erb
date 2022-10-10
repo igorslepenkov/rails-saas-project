@@ -5,6 +5,28 @@
       <h6 class="card-title">Title: <%= @project.title %></h6>
       <p class="card-text mt-4 mb-4">Details: <%= @project.details %></p>
       <p class="card-text">Expected completion: <%= @project.expected_completion_date %></p>
+      <% if @project.artifacts.any? %>
+        <p class="card-text text-center">Artifacts:</p>
+        <div class="table-responsive">
+          <table class="table text-center">
+            <tr>
+              <th>Name</th>
+              <th>Key</th>
+              <th>Actions</th>
+            </tr>
+            <% @project.artifacts.each do |artifact| %>
+              <tr>
+                <td><%= artifact.name %></td>
+                <td><a href="<%=artifact.key %>" target="_blank">Link</a></td>
+                <td><%= link_to 'Destroy', 
+                        artifact_path(artifact), 
+                        class: 'btn btn-danger', 
+                        data: {turbo_method: :delete} %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      <% end %>
     </div>
     <div class="card-footer">
       <%= link_to "Destroy project", project_path(@project), class: "btn btn-danger" %>
