@@ -48,9 +48,9 @@ function PaymentForm(element) {
     );
     this.nameField = document.getElementById("organization_name");
     this.subdomainField = document.getElementById("organization_subdomain");
-    this.paymentField = document.getElementById("payment-input");
+    this.paymentField = document.getElementById("organization_payment");
     this.planSelector = document.getElementById("organization_plan");
-    this.messageContainer = document.querySelector("#payment-message");
+    this.messageContainer = document.getElementById("payment-message");
     this.cardElement = document.getElementById("payment-element");
 
     this.submit = document.getElementById("submit_btn");
@@ -122,6 +122,7 @@ function PaymentForm(element) {
 
   this.initialize = () => {
     this.stripeService.initialize(this.planSelector.value);
+    this.addSubmitHandler();
   };
 
   this.showMessage = (messageText) => {
@@ -152,38 +153,25 @@ function PaymentForm(element) {
 
   this.handleSubmit = async (event) => {
     event.detail.formSubmission.stop();
-    const paymentStatus = await this.checkIfPaymentSuccessfull();
+    const email = this.emailField.value;
+    const password = this.passwordField.value;
+    const passwordConfirm = this.passwordConfirmField.value;
+    const name = this.nameField.value;
+    const subdomain = this.subdomainField.value;
+    const plan = this.planSelector.value;
+    const returnUrl = `${location.href}?email=${email}&password=${password}&password_confirmation=${passwordConfirm}&name=${name}&subdomain=${subdomain}&plan=${plan}`;
+    const { error } = await this.stripe.confirmPayment({
+      elements: this.stripeService.elements,
+      confirmParams: {
+        // Make sure to change this to your payment completion page
+        return_url: returnUrl,
+      },
+    });
 
-    if (paymentStatus) {
-      this.emailField.value = params.email;
-      this.passwordField.value = params.password;
-      this.passwordConfirmField.value = params.password_confirmation;
-      this.paymentField.value = JSON.stringify({
-        payment_intent: params.payment_intent,
-      });
-      this.nameField.value = params.name;
-      this.subdomainField.value = params.subdomain;
-      this.removeSubmitHandler();
-      this.form.submit();
+    if (error.type === "card_error" || error.type === "validation_error") {
+      this.showMessage(error.message);
     } else {
-      const email = this.emailField.value;
-      const password = this.passwordField.value;
-      const passwordConfirm = this.passwordConfirmField.value;
-      const name = this.nameField.value;
-      const subdomain = this.subdomainField.value;
-      const returnUrl = `${location.href}?email=${email}&password=${password}&password_confirmation=${passwordConfirm}&name=${name}&subdomain=${subdomain}`;
-      const { error } = await this.stripe.confirmPayment({
-        elements: this.stripeService.elements,
-        confirmParams: {
-          // Make sure to change this to your payment completion page
-          return_url: returnUrl,
-        },
-      });
-      if (error.type === "card_error" || error.type === "validation_error") {
-        this.showMessage(error.message);
-      } else {
-        this.showMessage("An unexpected error occurred.");
-      }
+      this.showMessage("An unexpected error occurred.");
     }
   };
 
@@ -197,11 +185,10 @@ function PaymentForm(element) {
       this.emailField.value = params.email;
       this.passwordField.value = params.password;
       this.passwordConfirmField.value = params.password_confirmation;
-      this.paymentField.value = JSON.stringify({
-        payment_intent: params.payment_intent,
-      });
+      this.paymentField.value = params.payment_intent;
       this.nameField.value = params.name;
       this.subdomainField.value = params.subdomain;
+      this.planSelector.value = params.plan;
       this.removeSubmitHandler();
       this.enableSubmitButton();
       this.enableFormSubmit();

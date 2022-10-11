@@ -1,0 +1,13 @@
+<div class="w-100 d-flex flex-column justify-content-center align-items-center">
+  <h2>Upgrade to premium</h2>
+  <%= form_with model: @organization, url: upgrade_plan_path, class: 'w-75', html: {id: 'payment-form-update'} do |f| %>
+    <div class="org-payment field">
+      <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+      </div>
+      <div id="payment-message" class="hidden"></div>
+    </div>
+    <%= f.hidden_field :payment %>
+    <%= f.submit 'Pay and upgrade', class: "btn btn-light btn-lg mt-3", id: 'submit_btn' %>
+  <% end %>
+</div>

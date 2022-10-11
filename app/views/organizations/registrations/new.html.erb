@@ -26,6 +26,7 @@
       <div class="org-plan field">
         <%= f.label :plan, class: "lead"  %><br />
         <%= f.select :plan, [['FREE', 'free'], ['PREMIUM', 'premium']], {}, {class: "form-select"} %>
+        <%= f.hidden_field :payment %>
       </div>
       <div class="org-subdomain field">
         <%= f.label :subdomain, class: "lead"  %><br />
@@ -37,7 +38,6 @@
           <!--Stripe.js injects the Payment Element-->
         </div>
         <div id="payment-message" class="hidden"></div>
-        <input type="hidden" name="payment" id="payment-input"/>
       </div>
       <div class="org-submit actions d-flex flex-column">
         <em class="text-danger mb-2 mt-2">all fields are requred</em>

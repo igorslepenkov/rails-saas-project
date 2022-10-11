@@ -1,0 +1,163 @@
+function UpdatePaymentForm(element) {
+  this.form = element;
+
+  this.stripeService = null;
+  this.stripe = null;
+  this.paymentField = null;
+  this.messageContainer = null;
+  this.cardElement = null;
+  this.submit = null;
+
+  this.disableSubmit = () => {
+    if (this.submit) {
+      this.submit.setAttribute("disabled", "");
+      this.submit.setAttribute("type", "button");
+    }
+  };
+
+  this.enableSubmitButton = () => {
+    this.submit.removeAttribute("disabled");
+  };
+
+  this.enableFormSubmit = () => {
+    this.submit.value = "Sign up";
+    this.submit.className = "btn btn-success btn-lg mb-3";
+    this.submit.setAttribute("type", "submit");
+  };
+
+  this.create = (publishableKey) => {
+    this.paymentField = document.getElementById("organization_payment");
+    this.messageContainer = document.getElementById("payment-message");
+    this.cardElement = document.getElementById("payment-element");
+
+    this.submit = document.getElementById("submit_btn");
+
+    const service = new UpdateStripeService(publishableKey, this);
+    this.stripe = service.stripe;
+    this.stripeService = service;
+  };
+
+  this.initialize = () => {
+    this.stripeService.initialize("premium");
+    this.addSubmitHandler();
+  };
+
+  this.showMessage = (messageText) => {
+    this.messageContainer.classList.remove("hidden");
+    this.messageContainer.textContent = messageText;
+
+    setTimeout(function () {
+      messageContainer.classList.add("hidden");
+      messageText.textContent = "";
+    }, 4000);
+  };
+
+  this.checkIfPaymentSuccessfull = async () => {
+    const clientSecret = new URLSearchParams(window.location.search).get(
+      "payment_intent_client_secret"
+    );
+
+    if (!clientSecret) {
+      return false;
+    }
+
+    const { paymentIntent } = await this.stripe.retrievePaymentIntent(
+      clientSecret
+    );
+
+    return paymentIntent.status === "succeeded";
+  };
+
+  this.handleSubmit = async (event) => {
+    event.detail.formSubmission.stop();
+    const returnUrl = location.href;
+    const { error } = await this.stripe.confirmPayment({
+      elements: this.stripeService.elements,
+      confirmParams: {
+        // Make sure to change this to your payment completion page
+        return_url: returnUrl,
+      },
+    });
+
+    if (error.type === "card_error" || error.type === "validation_error") {
+      this.showMessage(error.message);
+    } else {
+      this.showMessage("An unexpected error occurred.");
+    }
+  };
+
+  this.submitIfPayed = async () => {
+    const paymentStatus = await this.checkIfPaymentSuccessfull();
+
+    if (paymentStatus) {
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const params = Object.fromEntries(urlSearchParams.entries());
+      this.paymentField.value = params.payment_intent;
+      this.removeSubmitHandler();
+      this.enableSubmitButton();
+      this.enableFormSubmit();
+      this.form.submit();
+    }
+  };
+
+  this.addSubmitHandler = () => {
+    this.form.addEventListener("turbo:submit-start", this.handleSubmit);
+  };
+
+  this.removeSubmitHandler = () => {
+    this.form.removeEventListener("turbo:submit-start", this.handleSubmit);
+  };
+
+  this.initForm = (publishableKey) => {
+    this.create(publishableKey);
+    this.initialize();
+    this.submitIfPayed();
+  };
+}
+
+function UpdateStripeService(publishableKey, paymentForm) {
+  this.stripe = Stripe(publishableKey);
+  this.form = paymentForm;
+  this.elements = null;
+  this.cardElement = null;
+  this.clientSecret = null;
+  this.paymentElement = null;
+
+  this.initialize = async (plan) => {
+    const response = await fetch("/payments/create-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan: plan }),
+    });
+    const { clientSecret: secret } = await response.json();
+    this.clientSecret = secret;
+
+    const appearance = {
+      theme: "night",
+      labels: "floating",
+    };
+
+    this.elements = this.stripe.elements({
+      appearance,
+      clientSecret: this.clientSecret,
+    });
+    const payment = this.elements.create("payment");
+    payment.mount(this.form.cardElement);
+    this.paymentElement = payment;
+  };
+}
+
+class UpdateFormWithPayment {
+  static init = (publishableKey) => {
+    document.addEventListener("turbo:load", () => {
+      const form = document.getElementById("payment-form-update");
+
+      if (form) {
+        const paymentForm = new UpdatePaymentForm(form);
+        paymentForm.initForm(publishableKey);
+      }
+    });
+  };
+}
+
+UpdateFormWithPayment.init("<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>");

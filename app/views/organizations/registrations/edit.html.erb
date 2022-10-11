@@ -26,20 +26,17 @@
         <em>(unique organization name)</em><br />
         <%= f.text_field :name, class: "form-control" %>
       </div>
-      <div class="org-plan field">
-        <%= f.label :plan, class: "lead"  %><br />
-        <%= f.select :plan, [['FREE', 'free'], ['PREMIUM', 'premium']], {}, {class: "form-select"} %>
-      </div>
       <div class="org-subdomain field">
         <%= f.label :subdomain, class: "lead"  %><br />
         <em>(short unique identificator)</em><br />
         <%= f.text_field :subdomain, class: "form-control" %>
       </div>
       <div class="org-submit actions">
-        <%= f.submit "Update", class: "btn btn-light btn-lg mb-3"  %>
+        <%= f.submit "Update account", class: "btn btn-light btn-lg mb-3"  %>
       </div>
     </div>
   <% end %>
+  <%= link_to 'Upgrade to premium', upgrade_plan_path, class: 'btn bg-success bg-gradient btn-lg' %>
   <h3 class="mt-5">Cancel my account</h3>
   <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), 
                             data: { confirm: "Are you sure?" }, method: :delete,

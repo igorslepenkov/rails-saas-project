@@ -19,8 +19,7 @@
   grid-template-areas:
     "email password"
     "name confirm"
-    "plan current"
-    "subdomain ..."
+    "subdomain current"
     "submit submit";
   column-gap: 10px;
 
@@ -31,7 +30,6 @@
       "password"
       "confirm"
       "current"
-      "plan"
       "subdomain"
       "submit";
   }

@@ -9,6 +9,7 @@
     <%= javascript_importmap_tags %>
     <script src="https://js.stripe.com/v3/" defer></script>
     <%= javascript_include_tag 'stripe', defer: true%>
+    <%= javascript_include_tag 'stripe_update_form', defer: true%>
   </head>
   <body class="container d-flex flex-column min-vh-100 text-center text-white bg-dark">
     <%= render 'layouts/header' %>
