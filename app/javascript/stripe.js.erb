@@ -1,0 +1,282 @@
+function PaymentForm(element) {
+  this.form = element;
+
+  this.stripeService = null;
+  this.stripe = null;
+  this.emailField = null;
+  this.passwordField = null;
+  this.passwordConfirmField = null;
+  this.nameField = null;
+  this.subdomainField = null;
+  this.paymentField = null;
+  this.planSelector = null;
+  this.messageContainer = null;
+  this.cardElement = null;
+  this.submit = null;
+
+  this.disableSubmit = () => {
+    if (this.submit) {
+      this.submit.setAttribute("disabled", "");
+      this.submit.setAttribute("type", "button");
+    }
+  };
+
+  this.enableSubmitButton = () => {
+    this.submit.removeAttribute("disabled");
+  };
+
+  this.enableFormSubmit = () => {
+    this.submit.value = "Sign up";
+    this.submit.className = "btn btn-success btn-lg mb-3";
+    this.submit.setAttribute("type", "submit");
+  };
+
+  this.addValidationHandler = () => {
+    this.submit.addEventListener("click", this.validate);
+  };
+
+  this.removeValidationHandler = () => {
+    this.submit.removeEventListener("click", this.validate);
+  };
+
+  this.create = (publishableKey) => {
+    this.form = document.getElementById("payment-form");
+    this.emailField = document.getElementById("organization_email");
+    this.passwordField = document.getElementById("organization_password");
+    this.passwordConfirmField = document.getElementById(
+      "organization_password_confirmation"
+    );
+    this.nameField = document.getElementById("organization_name");
+    this.subdomainField = document.getElementById("organization_subdomain");
+    this.paymentField = document.getElementById("payment-input");
+    this.planSelector = document.getElementById("organization_plan");
+    this.messageContainer = document.querySelector("#payment-message");
+    this.cardElement = document.getElementById("payment-element");
+
+    this.submit = document.getElementById("submit_btn");
+    this.disableSubmit();
+    this.submit.value = "Validate";
+    this.submit.className = "btn btn-warning btn-lg mb-3";
+
+    const inputs = [
+      this.emailField,
+      this.passwordField,
+      this.passwordConfirmField,
+      this.nameField,
+      this.subdomainField,
+    ];
+
+    inputs.forEach((input) => {
+      input.addEventListener("change", () => {
+        const email = this.emailField.value;
+        const password = this.passwordField.value;
+        const confirm = this.passwordConfirmField.value;
+        const name = this.nameField.value;
+        const subdomain = this.subdomainField.value;
+        if (email && password && confirm && name && subdomain) {
+          this.enableSubmitButton();
+          this.addValidationHandler();
+        } else {
+          this.disableSubmit();
+          this.removeValidationHandler();
+        }
+      });
+    });
+
+    const service = new StripeService(publishableKey, this);
+    this.stripe = service.stripe;
+    this.stripeService = service;
+  };
+
+  this.validate = async () => {
+    const email = this.emailField.value;
+    const password = this.passwordField.value;
+    const confirm = this.passwordConfirmField.value;
+    const name = this.nameField.value;
+    const subdomain = this.subdomainField.value;
+    const plan = this.planSelector.value;
+
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const firstCheck = emailRegex.test(email);
+    const serverResponse = await fetch("/validations/organization", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, name, subdomain, plan }),
+    });
+    const secondCheck = await serverResponse.json();
+    const thirdCheck = password === confirm;
+
+    if (firstCheck && secondCheck && thirdCheck) {
+      this.removeValidationHandler();
+      this.enableFormSubmit();
+
+      if (plan !== "free") {
+        this.addSubmitHandler();
+      }
+    } else {
+      this.disableSubmit();
+      this.removeValidationHandler();
+    }
+  };
+
+  this.initialize = () => {
+    this.stripeService.initialize(this.planSelector.value);
+  };
+
+  this.showMessage = (messageText) => {
+    this.messageContainer.classList.remove("hidden");
+    this.messageContainer.textContent = messageText;
+
+    setTimeout(function () {
+      messageContainer.classList.add("hidden");
+      messageText.textContent = "";
+    }, 4000);
+  };
+
+  this.checkIfPaymentSuccessfull = async () => {
+    const clientSecret = new URLSearchParams(window.location.search).get(
+      "payment_intent_client_secret"
+    );
+
+    if (!clientSecret) {
+      return false;
+    }
+
+    const { paymentIntent } = await this.stripe.retrievePaymentIntent(
+      clientSecret
+    );
+
+    return paymentIntent.status === "succeeded";
+  };
+
+  this.handleSubmit = async (event) => {
+    event.detail.formSubmission.stop();
+    const paymentStatus = await this.checkIfPaymentSuccessfull();
+
+    if (paymentStatus) {
+      this.emailField.value = params.email;
+      this.passwordField.value = params.password;
+      this.passwordConfirmField.value = params.password_confirmation;
+      this.paymentField.value = JSON.stringify({
+        payment_intent: params.payment_intent,
+      });
+      this.nameField.value = params.name;
+      this.subdomainField.value = params.subdomain;
+      this.removeSubmitHandler();
+      this.form.submit();
+    } else {
+      const email = this.emailField.value;
+      const password = this.passwordField.value;
+      const passwordConfirm = this.passwordConfirmField.value;
+      const name = this.nameField.value;
+      const subdomain = this.subdomainField.value;
+      const returnUrl = `${location.href}?email=${email}&password=${password}&password_confirmation=${passwordConfirm}&name=${name}&subdomain=${subdomain}`;
+      const { error } = await this.stripe.confirmPayment({
+        elements: this.stripeService.elements,
+        confirmParams: {
+          // Make sure to change this to your payment completion page
+          return_url: returnUrl,
+        },
+      });
+      if (error.type === "card_error" || error.type === "validation_error") {
+        this.showMessage(error.message);
+      } else {
+        this.showMessage("An unexpected error occurred.");
+      }
+    }
+  };
+
+  this.submitIfPayed = async () => {
+    const paymentStatus = await this.checkIfPaymentSuccessfull();
+
+    if (paymentStatus) {
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const params = Object.fromEntries(urlSearchParams.entries());
+
+      this.emailField.value = params.email;
+      this.passwordField.value = params.password;
+      this.passwordConfirmField.value = params.password_confirmation;
+      this.paymentField.value = JSON.stringify({
+        payment_intent: params.payment_intent,
+      });
+      this.nameField.value = params.name;
+      this.subdomainField.value = params.subdomain;
+      this.removeSubmitHandler();
+      this.enableSubmitButton();
+      this.enableFormSubmit();
+      this.form.submit();
+    }
+  };
+
+  this.addSubmitHandler = () => {
+    this.form.addEventListener("turbo:submit-start", this.handleSubmit);
+  };
+
+  this.hydrate = () => {
+    this.planSelector.addEventListener("change", () => {
+      if (this.planSelector.value !== "free") {
+        this.initialize();
+      } else {
+        this.cardElement.textContent = "";
+      }
+    });
+  };
+
+  this.removeSubmitHandler = () => {
+    this.form.removeEventListener("turbo:submit-start", this.handleSubmit);
+  };
+
+  this.initForm = (publishableKey) => {
+    this.create(publishableKey);
+    this.hydrate();
+    this.submitIfPayed();
+  };
+}
+
+function StripeService(publishableKey, paymentForm) {
+  this.stripe = Stripe(publishableKey);
+  this.form = paymentForm;
+  this.elements = null;
+  this.cardElement = null;
+  this.clientSecret = null;
+  this.paymentElement = null;
+
+  this.initialize = async (plan) => {
+    const response = await fetch("/payments/create-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan: plan }),
+    });
+    const { clientSecret: secret } = await response.json();
+    this.clientSecret = secret;
+
+    const appearance = {
+      theme: "night",
+      labels: "floating",
+    };
+
+    this.elements = this.stripe.elements({
+      appearance,
+      clientSecret: this.clientSecret,
+    });
+    const payment = this.elements.create("payment");
+    payment.mount(this.form.cardElement);
+    this.paymentElement = payment;
+  };
+}
+
+class FormWithPayment {
+  static init = (publishableKey) => {
+    document.addEventListener("turbo:load", () => {
+      const form = document.getElementById("payment-form");
+
+      if (form) {
+        const paymentForm = new PaymentForm(form);
+        paymentForm.initForm(publishableKey);
+      }
+    });
+  };
+}
+
+FormWithPayment.init("<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>");

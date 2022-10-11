@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   get 'pages/dashboard', to: 'pages#dashboard'
   resources :projects
   resources :artifacts
+  post 'payments/create-intent', to: 'payments#create_intent'
+  post 'validations/organization', to: 'validations#organization_valid?'
 end

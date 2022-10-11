@@ -1,0 +1,30 @@
+export const StripeService = (publishableKey, form) => {
+  this.stripe = Stripe(publishableKey);
+  this.formToMount = form;
+  this.elements = null;
+  this.cardElement = null;
+  this.clientSecret = null;
+  this.paymentElement = null;
+
+  this.initialize = async (plan) => {
+    const response = await fetch("/payments/create-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan: plan }),
+    });
+    const { clientSecret: secret } = await response.json();
+    this.clientSecret = secret;
+
+    const appearance = {
+      theme: "night",
+      labels: "floating",
+    };
+
+    this.elements = this.stripe.elements({ appearance, clientSecret });
+    const payment = this.elements.create("payment");
+    payment.mount(this.formToMount.cardElement);
+    this.paymentElement = payment;
+  };
+
+  this.initialize();
+};

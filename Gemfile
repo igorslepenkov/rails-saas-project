@@ -89,3 +89,5 @@ gem 'devise_invitable'
 gem 'carrierwave', '~> 2.0'
 
 gem 'fog-google'
+
+gem 'stripe'

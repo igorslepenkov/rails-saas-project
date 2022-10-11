@@ -72,6 +72,7 @@
     "email password"
     "name confirm"
     "plan subdomain"
+    "payment payment"
     "submit submit";
   column-gap: 10px;
 
@@ -83,6 +84,7 @@
       "confirm"
       "plan"
       "subdomain"
+      "payment"
       "submit";
   }
 
@@ -112,5 +114,9 @@
 
   .org-subdomain {
     grid-area: subdomain;
+  }
+
+  .org-payment {
+    grid-area: payment;
   }
 }

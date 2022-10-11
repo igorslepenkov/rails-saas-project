@@ -1,0 +1,14 @@
+import { PaymentForm } from "./PaymentForm";
+
+export class StripePayment {
+  static init = (publishableKey) => {
+    document.addEventListener("turbo:load", () => {
+      const form = document.getElementById("payment-form");
+
+      if (form) {
+        const paymentForm = PaymentForm.new(form);
+        paymentForm.initForm(publishableKey);
+      }
+    });
+  };
+}

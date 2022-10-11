@@ -1,7 +1,7 @@
 <div class="w-100 d-flex flex-column justify-content-center align-items-center">
   <h2>New organization</h2>
   <%= render 'organizations/shared/error_messages' %>
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {id: 'payment-form'}) do |f| %>
     <div class="sign-up-grid">
       <div class="org-email field">
         <%= f.label :email, class: "lead"  %><br />
@@ -32,9 +32,16 @@
         <em>(short unique identificator)</em><br />
         <%= f.text_field :subdomain, class: "form-control" %>
       </div>
+      <div class="org-payment">
+        <div id="payment-element">
+          <!--Stripe.js injects the Payment Element-->
+        </div>
+        <div id="payment-message" class="hidden"></div>
+        <input type="hidden" name="payment" id="payment-input"/>
+      </div>
       <div class="org-submit actions d-flex flex-column">
         <em class="text-danger mb-2 mt-2">all fields are requred</em>
-        <%= f.submit "Sign up", class: "btn btn-light btn-lg mb-3"  %>
+        <%= f.submit "Sign up", class: "btn btn-light btn-lg mb-3", id: 'submit_btn'  %>
       </div>
     </div>
   <% end %>
