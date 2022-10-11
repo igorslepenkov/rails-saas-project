@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
-  before_action :authenticate_organization!, only: [:dashboard]
+  skip_before_action :authenticate_organization!, except: [:dashboard]
   skip_before_action :authenticate_user!
+  
   def home; end
 
   def about; end

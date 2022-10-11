@@ -36,7 +36,9 @@
       </div>
     </div>
   <% end %>
-  <%= link_to 'Upgrade to premium', upgrade_plan_path, class: 'btn bg-success bg-gradient btn-lg' %>
+  <% if current_organization.plan == 'free' %>
+    <%= link_to 'Upgrade to premium', upgrade_plan_path, class: 'btn bg-success bg-gradient btn-lg' %>
+  <% end %>
   <h3 class="mt-5">Cancel my account</h3>
   <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), 
                             data: { confirm: "Are you sure?" }, method: :delete,

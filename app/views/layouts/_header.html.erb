@@ -18,6 +18,11 @@
               <a class="nav-link" href="<%= pages_dashboard_path %>">Dashboard</a>
             </li>
           <% end %>
+          <% if organization_signed_in? && current_organization.plan == 'free' %>
+            <li class="nav-item">
+              <%= link_to 'Upgrade to premium', upgrade_plan_path, class: 'btn bg-success bg-gradient ms-3' %>
+            </li>
+          <% end %>
         </ul>
       </div>
       <% if organization_signed_in? && user_signed_in? %>
