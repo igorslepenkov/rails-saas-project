@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "saas-project-364811",
+  "private_key_id": "fed42f61cfa8197cff11f42334011536aa6845d4",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBB1dFXjBCNuPo\n7V3pSF3ImhE4z6obujHzfU3KLyRC0O3ALzpToq98AdUwXVV3bWccAIqqIAImUwSc\nbEWPohz91KYPrWD8cSK9Rq/+iDd9CTmP+YgVPS+UnsaTglX/XwCZkHBOgZkOjGxw\nrp/J5gYzavVWmSqSIEiofP8IK28rM/GJSPNGNh0uowEuyurCQwgqaYz5EsZHykJL\nZBjByen7hoD0R13QgulUrefb1QVpLFQFxNqJI9Ouzbsp2dg9BTzg2M01FVBXwuSW\neI3hqwrKvRJ0Iy5i32frMNHEXkNd9DZv1wS8q0U6qRtCy3X4QA9vi11hRLEWweUY\n3g0WsgbTAgMBAAECggEAXCk/m0ChxPOFNJCkbn3dPSqGP3wzCWMId2tjyT1h0D8F\nzOUfsY/yvj/3xExDwq4q9T0y95ApxpeLk43EVpQ9yFmP4dtTe6QexIUsAViTObE+\nWQX4Wb+paIm4YPRxT+jRlgBXBrys0bvtCI3vf8vCOSl/stWVdEhSuJNZhtKKFPM2\nb1o9WybYMPjfUDj+YHVugIaRywk/uMcbLl0Sz5r8Qc9xCvaT9Gso9MjKR+6AMnuZ\ntdrxqHmWG/teZLYm5IFC6GmqqKN71HYSG0XfXJtNfRJz9MKeHlW+k8W6VXFVXKPE\n6LTWVU0f+vbZHTj4M3bC2RYbjuT0+/niWz5f03YLrQKBgQDytSwT0gTUYIzsIoxN\nPvCyElEZbs/69sW1PDrSl9cUjyrmk/1VzGfCNFOxv7Mij5KzIktDUgkpVduKEMfm\nLghh2OKAcBAIEcAWErR80dGBJHm2yR+tBy3O558ydFK7qDuFl8JT8GPwioTvdfuA\nM7hIGl3QIQjnA/BlnK7xozSQBwKBgQDLmafAGHDLNKoB+eligD4uh3wRyr8QPIEb\n6ScH7CPIu0QJp/tVyuJqdrzcs6dT557fBLob7BlliH0DxsPO6gCgv98BwYe00Qey\n2LSP0hAAHwd5X3hcdu04aXYoEDZgsFuDMSuNnvQ78VP2Swrc1NLuLu8yMSOFLbMM\nVs0jdkoH1QKBgHWLgPlocaZZzGZgpQqUPQZBEL38iQXGliIcNXDg0O3IGMLrUXpI\nMMhBh3dCnINUfXv8U+8awA0g496OGgJEsRKSc8A4hcsiraEDFh6Nj6W4AKqh5ZFr\nNKhMTTGmXJs98vXUde0pM32/2HoQ7ek9Izbobh7qoOEha0ALDj9BB6fpAoGBAKFu\nPJbQCibko+ObPpROMH9+Bz6oLeP2xTvXGo5qiljvOlwZp+t3SRy29rpba9HYNZyI\nx/O5uM1LciwbXkfiPAs49t4Sj8Irdto0fr4GBY/DCo8OxoUx+pce74OGj0cMrhKQ\nWwMYRHh+uV7wUzWTPYeDCT8XvR0shenDrTVv5fTdAoGBANU3mVxhe6TDSGqo1UpV\n0dVG+ePImv7zvsEEVD1D8iDQ/3JVcw1b+GbhHcO/4cXa6b6bjKQ+51FkGBAdZheH\nfQpsVW77M+HCmbJkcsvZgiqj28wJtXT6i8m3EZpNa9MQXiIETRU+6qmDDSyMuTiG\nZcFi107H8x8UOySCbfjCm/gz\n-----END PRIVATE KEY-----\n",
+  "client_email": "saas-project-app@saas-project-364811.iam.gserviceaccount.com",
+  "client_id": "111857015781231399631",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/saas-project-app%40saas-project-364811.iam.gserviceaccount.com"
+}
