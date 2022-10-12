@@ -4,6 +4,9 @@
   <% if current_organization %>
     <p class="lead h3">Go to your organization's dashboard</p>
     <%= link_to "Dashboard", pages_dashboard_path, class: "btn btn-lg btn-light" %>
+  <% elsif %>
+    <p class='lead h3'>Use the link below to naviate to your projects</p>
+    <%= link_to 'My Projects', projects_path, class: 'btn btn-lg btn-light' %>
   <% else %>
     <p class="lead">In order to continue using application, please pass a registration or sign in</p>
     <%= link_to "Sign In", new_organization_session_path, class: "btn btn-lg btn-light" %>

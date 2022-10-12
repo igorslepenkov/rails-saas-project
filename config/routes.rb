@@ -17,10 +17,17 @@ Rails.application.routes.draw do
   patch 'upgrade_plan', to: 'pages#upgrade_plan'
   put 'upgrade_plan', to: 'pages#upgrade_plan'
 
-  resources :projects
-  resources :artifacts
-
   post 'payments/create-intent', to: 'payments#create_intent'
 
   post 'validations/organization', to: 'validations#organization_valid?'
+
+  # post 'projects/withdraw_user', to: 'projects#withdraw_user'
+  # post 'projects/assign_user', to: 'projects#assign_user'
+  resources :projects do
+    get '/manage', to: 'projects#manage_team'
+    post '/withdraw_user', to: 'projects#withdraw_user'
+    post '/assign_user', to: 'projects#assign_user'
+  end
+
+  resources :artifacts
 end

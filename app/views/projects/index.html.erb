@@ -1,0 +1,25 @@
+<div class="w-100 d-flex flex-column align-items-center justify-content-center">
+  <h3 class="h3 mb-3">You involved in next projects:</h3>
+  <% if @projects %>
+    <table class="w-50 table table-light table-striped">
+      <tr>
+        <th scope="row">#</th>
+        <th scope="col"> Title </th>
+        <th scope="col"> Details </th>
+        <th scope="col"> Expected completion </th>
+      </tr>
+      <% @projects.each_with_index do |project, idx| %>
+        <tr>
+          <td scope="row"> <%= idx + 1 %> </td>
+          <td> <%= link_to project.title, project_path(project) %> </td>
+          <td> <%= project.details %> </td>
+          <td> <%= project.expected_completion_date %> </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <div class="d-flex flex-column align-items-center mb-5">
+      <h3 class="h3 text-info">You don't have any projects yet</h3>
+    </div>
+  <% end %>
+</div>

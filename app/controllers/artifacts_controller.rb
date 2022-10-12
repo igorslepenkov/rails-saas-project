@@ -1,5 +1,6 @@
 class ArtifactsController < ApplicationController
   skip_before_action :authenticate_user!
+  skip_before_action :authenticate_organization!, only: %i[new create]
   before_action :set_artifact, only: %i[show destroy]
 
   def new
