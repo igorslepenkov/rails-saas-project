@@ -4,7 +4,7 @@
   <% if current_organization %>
     <p class="lead h3">Go to your organization's dashboard</p>
     <%= link_to "Dashboard", pages_dashboard_path, class: "btn btn-lg btn-light" %>
-  <% elsif %>
+  <% elsif current_user %>
     <p class='lead h3'>Use the link below to naviate to your projects</p>
     <%= link_to 'My Projects', projects_path, class: 'btn btn-lg btn-light' %>
   <% else %>

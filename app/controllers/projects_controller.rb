@@ -23,8 +23,7 @@ class ProjectsController < ApplicationController
   def edit; end
 
   def update
-    @project.update(project_params)
-    if @project.save
+    if @project.update(project_params)
       redirect_to pages_dashboard_path, notice: 'Project has been updated'
     else
       render 'edit', status: :bad_request
