@@ -1,0 +1,166 @@
+DEPRECATION WARNING: #fog_provider is deprecated and has no effect (called from block in <main> at /home/igor/Desktop/projects/rails/rails-saas-project/config/initializers/carrierwave.rb:2)
+  [1m[35m (129.4ms)[0m  [1m[35mCREATE DATABASE "db/development_pg" ENCODING = 'utf8'[0m
+  [1m[35m (96.1ms)[0m  [1m[35mCREATE DATABASE "db/test_pg" ENCODING = 'utf8'[0m
+DEPRECATION WARNING: #fog_provider is deprecated and has no effect (called from block in <main> at /home/igor/Desktop/projects/rails/rails-saas-project/config/initializers/carrierwave.rb:2)
+  [1m[35m (11.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (6.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6912912541936343250)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20221003080001)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp(6), "remember_created_at" timestamp(6), "confirmation_token" character varying, "confirmed_at" timestamp(6), "confirmation_sent_at" timestamp(6), "unconfirmed_email" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_confirmation_token" ON "users" ("confirmation_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221003080001"]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to DeviseCreateOrganizations (20221004091958)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "organizations" ("id" bigserial primary key, "name" character varying, "plan" character varying, "payment" character varying, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp(6), "remember_created_at" timestamp(6), "confirmation_token" character varying, "confirmed_at" timestamp(6), "confirmation_sent_at" timestamp(6), "unconfirmed_email" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_organizations_on_email" ON "organizations" ("email")[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_organizations_on_reset_password_token" ON "organizations" ("reset_password_token")[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_organizations_on_confirmation_token" ON "organizations" ("confirmation_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221004091958"]]
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddSubdomainToOrganization (20221004113946)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "organizations" ADD "subdomain" character varying[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221004113946"]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddInvitableToUsers (20221005130026)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "invitation_token" character varying[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "invitation_created_at" timestamp(6)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "users" ADD "invitation_sent_at" timestamp(6)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "invitation_accepted_at" timestamp(6)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "invitation_limit" integer[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "invited_by_id" integer[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "invited_by_type" character varying[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_invitation_token" ON "users" ("invitation_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221005130026"]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddOrganizationIdToUsers (20221005131407)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "organization_id" bigint[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221005131407"]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to DeviseInvitableAddToOrganizations (20221006074809)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "organizations" ADD "invitation_token" character varying[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "organizations" ADD "invitation_created_at" timestamp(6)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "organizations" ADD "invitation_sent_at" timestamp(6)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "organizations" ADD "invitation_accepted_at" timestamp(6)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "organizations" ADD "invitation_limit" integer[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "organizations" ADD "invited_by_type" character varying[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "organizations" ADD "invited_by_id" bigint[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE INDEX "index_organizations_on_invited_by" ON "organizations" ("invited_by_type", "invited_by_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "organizations" ADD "invitations_count" integer DEFAULT 0[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_organizations_on_invitation_token" ON "organizations" ("invitation_token")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_organizations_on_invited_by_id" ON "organizations" ("invited_by_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221006074809"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddFirstAndLastNameToUsers (20221006115720)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "first_name" character varying[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "last_name" character varying[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221006115720"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateProjects (20221006132840)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "projects" ("id" bigserial primary key, "title" character varying, "details" character varying, "expected_completion_date" date, "organization_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE INDEX "index_projects_on_organization_id" ON "projects" ("organization_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221006132840"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateArtifacts (20221007114554)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE TABLE "artifacts" ("id" bigserial primary key, "name" character varying, "key" character varying, "project_id" bigint)[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE INDEX "index_artifacts_on_project_id" ON "artifacts" ("project_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221007114554"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddBelogsToOrganizationToArtifacts (20221007132403)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "artifacts" ADD "organization_id" bigint[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE INDEX "index_artifacts_on_organization_id" ON "artifacts" ("organization_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221007132403"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateProjectsUsers (20221011132451)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "projects_users" ("project_id" bigint, "user_id" bigint)[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE INDEX "index_projects_users_on_project_id" ON "projects_users" ("project_id")[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE INDEX "index_projects_users_on_user_id" ON "projects_users" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221011132451"]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-12-12 19:06:13.005469"], ["updated_at", "2022-12-12 19:06:13.005469"]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6912912541936343250)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+DEPRECATION WARNING: #fog_provider is deprecated and has no effect (called from block in <main> at /home/igor/Desktop/projects/rails/rails-saas-project/config/initializers/carrierwave.rb:2)
+Started GET "/" for ::1 at 2022-12-12 22:06:24 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  Rendered pages/home.html.erb within layouts/application (Duration: 5.3ms | Allocations: 902)
+  Rendered layouts/_header.html.erb (Duration: 1.2ms | Allocations: 934)
+  Rendered layouts/_messages.html.erb (Duration: 0.8ms | Allocations: 217)
+  Rendered layouts/_footer.html.erb (Duration: 0.5ms | Allocations: 100)
+  Rendered layout layouts/application.html.erb (Duration: 4036.6ms | Allocations: 163022)
+Completed 200 OK in 4059ms (Views: 4042.6ms | ActiveRecord: 0.0ms | Allocations: 168488)
+
+
+Started GET "/organizations/sign_in" for ::1 at 2022-12-12 22:06:36 +0300
+Processing by Organizations::SessionsController#new as HTML
+  [1m[36mOrganization Load (0.5ms)[0m  [1m[34mSELECT "organizations".* FROM "organizations" WHERE "organizations"."subdomain" = $1 ORDER BY "organizations"."id" ASC LIMIT $2[0m  [["subdomain", ""], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/devise_tenants.rb:12:in `find_tenant_by_subdomain'
+  Rendering layout layouts/application.html.erb
+  Rendering organizations/sessions/new.html.erb within layouts/application
+  Rendered organizations/shared/_error_messages.html.erb (Duration: 0.9ms | Allocations: 205)
+  Rendered organizations/shared/_links.html.erb (Duration: 11.2ms | Allocations: 841)
+  Rendered organizations/sessions/new.html.erb within layouts/application (Duration: 100.3ms | Allocations: 14071)
+  Rendered layouts/_header.html.erb (Duration: 0.3ms | Allocations: 283)
+  Rendered layouts/_messages.html.erb (Duration: 0.1ms | Allocations: 33)
+  Rendered layouts/_footer.html.erb (Duration: 0.0ms | Allocations: 9)
+  Rendered layout layouts/application.html.erb (Duration: 154.8ms | Allocations: 23154)
+Completed 200 OK in 190ms (Views: 156.4ms | ActiveRecord: 3.6ms | Allocations: 41563)
+
+
+Started GET "/organizations/sign_up" for ::1 at 2022-12-12 22:06:38 +0300
+Processing by Organizations::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering organizations/registrations/new.html.erb within layouts/application
+  Rendered organizations/shared/_error_messages.html.erb (Duration: 0.1ms | Allocations: 24)
+  Rendered organizations/shared/_links.html.erb (Duration: 0.7ms | Allocations: 251)
+  Rendered organizations/registrations/new.html.erb within layouts/application (Duration: 17.6ms | Allocations: 3826)
+  Rendered layouts/_header.html.erb (Duration: 0.4ms | Allocations: 283)
+  Rendered layouts/_messages.html.erb (Duration: 0.1ms | Allocations: 33)
+  Rendered layouts/_footer.html.erb (Duration: 0.0ms | Allocations: 9)
+  Rendered layout layouts/application.html.erb (Duration: 35.0ms | Allocations: 12897)
+Completed 200 OK in 39ms (Views: 36.5ms | ActiveRecord: 0.0ms | Allocations: 14763)
+
+
+Started GET "/pages/about" for ::1 at 2022-12-12 22:06:40 +0300
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 0.6ms | Allocations: 166)
+  Rendered layouts/_header.html.erb (Duration: 0.3ms | Allocations: 254)
+  Rendered layouts/_messages.html.erb (Duration: 0.1ms | Allocations: 24)
+  Rendered layouts/_footer.html.erb (Duration: 0.0ms | Allocations: 8)
+  Rendered layout layouts/application.html.erb (Duration: 8.2ms | Allocations: 8994)
+Completed 200 OK in 11ms (Views: 8.7ms | ActiveRecord: 0.0ms | Allocations: 9954)
+
+
+Started GET "/pages/plans" for ::1 at 2022-12-12 22:06:44 +0300
+Processing by PagesController#plans as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/plans.html.erb within layouts/application
+  Rendered pages/plans.html.erb within layouts/application (Duration: 0.9ms | Allocations: 268)
+  Rendered layouts/_header.html.erb (Duration: 0.3ms | Allocations: 245)
+  Rendered layouts/_messages.html.erb (Duration: 0.1ms | Allocations: 24)
+  Rendered layouts/_footer.html.erb (Duration: 0.0ms | Allocations: 8)
+  Rendered layout layouts/application.html.erb (Duration: 9.5ms | Allocations: 9093)
+Completed 200 OK in 12ms (Views: 9.9ms | ActiveRecord: 0.0ms | Allocations: 9946)
+
+

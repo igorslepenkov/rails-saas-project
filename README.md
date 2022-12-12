@@ -1,24 +1,35 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<div id="top"></div>
+<br />
+<div align="center">
+  <a href="https://github.com/igorslepenkov/rails-alpha-blog">
+    <img src="./images.png" alt="Logo" width="80" height="80">
+  </a>
 
-Things you may want to cover:
+  <h3 align="center">Rails SaaS Project</h3>
 
-* Ruby version
+  <p align="center">Educational SaaS Project</p>
+</div>
 
-* System dependencies
+### About Project
 
-* Configuration
+This is my third small Ruby project, that I have created during my RoR internship at IThechArt company.
+This app represents 'software as a service' pattern and the main idea is to handle Organization-Workers-Projects relations for each separate organization.
 
-* Database creation
+It includes 5 models with simple associations, integration of external Stripe API to handle payments, artifacts uploader with CarrierWave and ImageMagick, Devise authentication for Organization and User + Devise-Invitable for creating invitations for Users(workers of Organization)
 
-* Database initialization
+As the main feature of this project I used "acts as tenant" gem to emulate multitenancy (each Organization has its own account and subdomain, data from one tenant can't be used in another tenant).
 
-* How to run the test suite
+Also I have used GoogleCloud integration to store artifact's images for projects.
 
-* Services (job queues, cache servers, search engines, etc.)
+Font made with HTML-ERB and Bootstrap 5
 
-* Deployment instructions
+### Built With
 
-* ...
+- [Ruby on Rails](https://rubyonrails.org/)
+- [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+- [Stripe](https://stripe.com/)
+- [CarrierWave gem](https://github.com/carrierwaveuploader/carrierwave)
+- [Devise gem](https://github.com/heartcombo/devise)
+- [Fog](https://github.com/fog/fog)
